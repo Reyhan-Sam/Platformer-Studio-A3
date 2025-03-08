@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private RaycastHit leftHit;
     private void Awake()
     {
+        if (maxSpeed <= 0) // Ensures speed is not zero
+        maxSpeed = 10f; // Set a reasonable default (or match slider default)
         inputManager.OnMove.AddListener(MovePlayer);
         inputManager.OnJump.AddListener(Jump);
         inputManager.OnDash.AddListener(Dash);
@@ -111,5 +113,9 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+    }
+
+    public void UpdatePlayerMaxSpeed(float speed){
+        maxSpeed = speed;
     }
 }
